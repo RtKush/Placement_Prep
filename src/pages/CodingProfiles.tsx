@@ -10,13 +10,13 @@ import { CodingProfile } from '@/types/workspace';
 import { cn } from '@/lib/utils';
 
 const platformIcons: Record<string, string> = {
-  leetcode: '🟡',
-  gfg: '🟢',
-  codechef: '🍳',
-  codeforces: '🔵',
-  hackerrank: '💚',
-  hackerearth: '🔷',
-  other: '💻'
+  leetcode: '',
+  gfg: '',
+  codechef: '',
+  codeforces: '',
+  hackerrank: '',
+  hackerearth: '',
+  other: '</>'
 };
 
 export default function CodingProfiles() {

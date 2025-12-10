@@ -15,9 +15,9 @@ export function PDFViewer({ open, onClose, url, title }: PDFViewerProps) {
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-5xl h-[90vh] p-0 gap-0 overflow-hidden">
+      <DialogContent className="max-w-[98vw] w-[98vw] h-[98vh] p-0 gap-0 overflow-hidden flex flex-col">
         {/* Header */}
-        <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-card">
+        <div className="flex items-center justify-between px-4 py-2 border-b border-border bg-card shrink-0">
           <h3 className="font-semibold truncate max-w-md">{title}</h3>
           <div className="flex items-center gap-2">
             {isExternalUrl && (
@@ -44,7 +44,7 @@ export function PDFViewer({ open, onClose, url, title }: PDFViewerProps) {
         </div>
 
         {/* PDF Content */}
-        <div className="flex-1 bg-muted/50">
+        <div className="flex-1 bg-muted/50 overflow-hidden">
           {url ? (
             <iframe
               src={url}

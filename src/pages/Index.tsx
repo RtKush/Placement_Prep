@@ -4,7 +4,6 @@ import {
   Sparkles, Rocket
 } from 'lucide-react';
 import { CategoryCard } from '@/components/CategoryCard';
-import { ProgressTracker } from '@/components/ProgressTracker';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { CodingProfile, PDFResource, InterviewExperience, Project, HRQuestion, CompanyPrep } from '@/types/workspace';
 import { Button } from '@/components/ui/button';
@@ -105,24 +104,23 @@ export default function Dashboard() {
   };
 
   const getCounts = (key: string) => {
-    switch(key) {
-      case 'codingProfiles': return codingProfiles.length;
-      case 'interviewExperiences': return interviews.length;
-      case 'projects': return projects.length;
-      case 'hrQuestions': return hrQuestions.length;
-      case 'companyPrep': return companyPrep.length;
-      case 'pdfResources': return pdfResources.length;
-      default: return 0;
+    switch (key) {
+      case 'codingProfiles':
+        return codingProfiles.length;
+      case 'interviewExperiences':
+        return interviews.length;
+      case 'projects':
+        return projects.length;
+      case 'hrQuestions':
+        return hrQuestions.length;
+      case 'companyPrep':
+        return companyPrep.length;
+      case 'pdfResources':
+        return pdfResources.length;
+      default:
+        return 0;
     }
   };
-
-  const progressItems = [
-    { label: 'Coding Profiles', current: codingProfiles.length, target: 3, color: 'sage' },
-    { label: 'DSA Sheets', current: pdfResources.filter(p => p.category === 'dsa').length, target: 2, color: 'peach' },
-    { label: 'Projects', current: projects.length, target: 3, color: 'mint' },
-    { label: 'Interview Experiences', current: interviews.length, target: 2, color: 'sky' },
-    { label: 'HR Questions Prepared', current: hrQuestions.length, target: 5, color: 'rose' },
-  ];
 
   return (
     <div className="space-y-8">
@@ -150,11 +148,6 @@ export default function Dashboard() {
             Load Sample Data
           </Button>
         )}
-      </div>
-
-      {/* Progress Tracker */}
-      <div className="animate-fade-in" style={{ animationDelay: '150ms' }}>
-        <ProgressTracker items={progressItems} />
       </div>
 
       {/* Quick Stats */}

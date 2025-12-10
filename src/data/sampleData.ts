@@ -5,23 +5,23 @@ export const sampleCodingProfiles: CodingProfile[] = [
     id: '1',
     name: 'LeetCode Profile',
     platform: 'LeetCode',
-    url: 'https://leetcode.com/username',
+    url: 'https://leetcode.com/u/RtLavKush7/',
     createdAt: new Date().toISOString()
   },
   {
     id: '2',
     name: 'GeeksforGeeks Profile',
     platform: 'GeeksforGeeks',
-    url: 'https://auth.geeksforgeeks.org/user/username',
+    url: 'https://www.geeksforgeeks.org/profile/rtkush?tab=activity',
     createdAt: new Date().toISOString()
   },
-  {
-    id: '3',
-    name: 'CodeChef Profile',
-    platform: 'CodeChef',
-    url: 'https://www.codechef.com/users/username',
-    createdAt: new Date().toISOString()
-  }
+  // {
+  //   id: '3',
+  //   name: 'CodeChef Profile',
+  //   platform: 'CodeChef',
+  //   url: 'https://www.codechef.com/users/username',
+  //   createdAt: new Date().toISOString()
+  // }
 ];
 
 export const samplePDFResources: PDFResource[] = [
@@ -37,22 +37,23 @@ export const samplePDFResources: PDFResource[] = [
     name: 'DBMS Notes',
     category: 'notes',
     subject: 'Database Management',
-    url: '#',
+    url: 'https://drive.google.com/file/d/171K_LbrOrUyGmduHEh3YM-JUdiOtw_Nk/view?usp=drive_link',
     createdAt: new Date().toISOString()
   },
+ 
   {
     id: '3',
     name: 'OS Concepts',
     category: 'notes',
     subject: 'Operating Systems',
-    url: '#',
+    url: 'https://drive.google.com/file/d/1olCSvkTzRq56b6r5lZgBnGpH48z1PClW/view?usp=drive_link',
     createdAt: new Date().toISOString()
   },
   {
     id: '4',
     name: 'My Resume',
     category: 'resume',
-    url: '#',
+    url: 'https://drive.google.com/file/d/1LF4L09dTM1fH5u431BuFsNVGuNb7fu5p/view?usp=sharing',
     createdAt: new Date().toISOString()
   }
 ];
