@@ -54,6 +54,7 @@ export default function Projects() {
     answer: string;
     imageUrl?: string;
   }[]>([]);
+  const [qaConfirmTarget, setQaConfirmTarget] = useState<{ id: string; label: string } | null>(null);
   
 
   function resetForm() {
@@ -106,7 +107,10 @@ export default function Projects() {
   }
 
   function removeQa(id: string) {
-    setQaItems((prev) => prev.filter((p) => p.id !== id));
+    const item = qaItems.find(p => p.id === id);
+    const label = item?.question || 'this Q&A item';
+    if (!confirm(`Remove "${label}" from this project?`)) return;
+    setQaItems(prev => prev.filter(p => p.id !== id));
   }
 
   function moveUp(index: number) {
@@ -267,14 +271,13 @@ export default function Projects() {
                   </div>
                 </div>
 
-                <div className="flex-shrink-0">
+                  <div className="flex-shrink-0">
                   <button
                     type="button"
                     onClick={(e) => {
                       e.stopPropagation();
-                      if (confirm(`Delete project "${project.name}"? This cannot be undone.`)) {
-                        setProjects((prev) => (prev || []).filter((p) => p.id !== project.id));
-                      }
+                      if (!confirm(`Delete project "${project.name}"? This cannot be undone.`)) return;
+                      setProjects((prev) => (prev || []).filter((p) => p.id !== project.id));
                     }}
                     className="inline-flex items-center gap-2 rounded-md px-3 py-1 text-sm font-medium bg-destructive text-destructive-foreground hover:opacity-90"
                   >
@@ -372,6 +375,8 @@ export default function Projects() {
           </AccordionItem>
         ))}
       </Accordion>
+        {/* Confirm dialogs for QA item removal and project deletion */}
+        {/* native confirm used for deletions */}
     </div>
   );
 }

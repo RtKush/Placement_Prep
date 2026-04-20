@@ -21,7 +21,8 @@ export default function CompanyPrepPage() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingPrep, setEditingPrep] = useState<CompanyPrep | null>(null);
   const [formData, setFormData] = useState(initialFormData);
-  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [viewerOpen, setViewerOpen] = useState(false);
+  const [selectedPrep, setSelectedPrep] = useState<CompanyPrep | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -65,7 +66,15 @@ export default function CompanyPrepPage() {
   };
 
   const handleDelete = (id: string) => {
+    const prep = preps.find(p => p.id === id);
+    const name = prep?.company || 'this company prep';
+    if (!confirm(`Delete "${name}"? This cannot be undone.`)) return;
     setPreps(prev => prev.filter(p => p.id !== id));
+    // close viewer if it was open for this item
+    if (selectedPrep?.id === id) {
+      setViewerOpen(false);
+      setSelectedPrep(null);
+    }
   };
 
   return (
@@ -147,79 +156,87 @@ export default function CompanyPrepPage() {
         />
       ) : (
         <div className="grid sm:grid-cols-2 gap-4">
-          {preps.map((prep, index) => {
-            const isExpanded = expandedId === prep.id;
-            
-            return (
-              <div
-                key={prep.id}
-                className={cn(
-                  "group rounded-2xl bg-card border border-border overflow-hidden",
-                  "card-hover shadow-card animate-fade-in"
-                )}
-                style={{ animationDelay: `${index * 50}ms` }}
+          {preps.map((prep, index) => (
+            <div
+              key={prep.id}
+              className={cn(
+                "group rounded-2xl bg-card border border-border overflow-hidden",
+                "card-hover shadow-card animate-fade-in"
+              )}
+              style={{ animationDelay: `${index * 50}ms` }}
+            >
+              <div 
+                className="p-5 cursor-pointer"
+                onClick={() => { setSelectedPrep(prep); setViewerOpen(true); }}
               >
-                <div 
-                  className="p-5 cursor-pointer"
-                  onClick={() => setExpandedId(isExpanded ? null : prep.id)}
-                >
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-xl gradient-coral flex items-center justify-center">
-                        <Building2 className="w-6 h-6 text-foreground/80" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-lg">{prep.company}</h3>
-                        <p className="text-sm text-muted-foreground">
-                          {prep.resources.length} resource{prep.resources.length !== 1 ? 's' : ''}
-                        </p>
-                      </div>
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl gradient-coral flex items-center justify-center">
+                      <Building2 className="w-6 h-6 text-foreground/80" />
                     </div>
-                    
-                    <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <Button variant="ghost" size="icon" onClick={(e) => { e.stopPropagation(); handleEdit(prep); }}>
-                        <Edit2 className="w-4 h-4" />
-                      </Button>
-                      <Button variant="ghost" size="icon" onClick={(e) => { e.stopPropagation(); handleDelete(prep.id); }}>
-                        <Trash2 className="w-4 h-4 text-destructive" />
-                      </Button>
+                    <div>
+                      <h3 className="font-semibold text-lg">{prep.company}</h3>
+                      <p className="text-sm text-muted-foreground">
+                        {prep.resources.length} resource{prep.resources.length !== 1 ? 's' : ''}
+                      </p>
                     </div>
+                  </div>
+                  
+                  <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Button variant="ghost" size="icon" onClick={(e) => { e.stopPropagation(); handleEdit(prep); }}>
+                      <Edit2 className="w-4 h-4" />
+                    </Button>
+                    <Button variant="ghost" size="icon" onClick={(e) => { e.stopPropagation(); handleDelete(prep.id); }}>
+                      <Trash2 className="w-4 h-4 text-destructive" />
+                    </Button>
                   </div>
                 </div>
-                
-                {isExpanded && (
-                  <div className="px-5 pb-5 pt-0 border-t border-border animate-fade-in">
-                    <div className="pt-4 space-y-4">
-                      <div>
-                        <h4 className="font-medium mb-2">Notes</h4>
-                        <p className="text-muted-foreground whitespace-pre-wrap">{prep.notes}</p>
-                      </div>
-                      {prep.resources.length > 0 && (
-                        <div>
-                          <h4 className="font-medium mb-2">Resources</h4>
-                          <div className="space-y-2">
-                            {prep.resources.map((resource, i) => (
-                              <a
-                                key={i}
-                                href={resource}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="block p-2 rounded-lg bg-muted hover:bg-accent text-sm truncate transition-colors"
-                              >
-                                {resource}
-                              </a>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                )}
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       )}
+
+        {/* Viewer dialog for a selected company prep */}
+        <Dialog open={viewerOpen} onOpenChange={setViewerOpen}>
+          <DialogContent className="max-w-2xl max-h-[80vh] overflow-auto animate-fade-in">
+            <DialogHeader>
+              <DialogTitle>{selectedPrep?.company}</DialogTitle>
+            </DialogHeader>
+
+            <div className="pt-2 space-y-4">
+              <div>
+                <h4 className="font-medium mb-2">Notes</h4>
+                <p className="text-muted-foreground whitespace-pre-wrap">{selectedPrep?.notes}</p>
+              </div>
+
+              {selectedPrep?.resources && selectedPrep.resources.length > 0 && (
+                <div>
+                  <h4 className="font-medium mb-2">Resources</h4>
+                  <div className="space-y-2 max-h-[40vh] overflow-auto">
+                    {selectedPrep.resources.map((resource, i) => (
+                      <a
+                        key={i}
+                        href={resource}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block p-2 rounded-lg bg-muted hover:bg-accent text-sm break-words max-w-full transition-colors"
+                      >
+                        {resource}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="flex gap-2 justify-end pt-4">
+              <Button variant="ghost" onClick={() => { setViewerOpen(false); setSelectedPrep(null); }}>Close</Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* native confirm used for deletions */}
     </div>
   );
 }

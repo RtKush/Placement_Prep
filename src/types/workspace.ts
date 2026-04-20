@@ -28,7 +28,7 @@ export interface InterviewExperience {
   id: string;
   company: string;
   role: string;
-  date: string;
+  // date: string;
   rounds: string;
   experience: string;
   result: 'selected' | 'rejected' | 'pending';

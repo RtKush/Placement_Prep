@@ -20,7 +20,7 @@ const resultConfig = {
 const initialFormData: {
   company: string;
   role: string;
-  date: string;
+  // date: string;
   rounds: string;
   experience: string;
   result: 'selected' | 'rejected' | 'pending';
@@ -28,7 +28,7 @@ const initialFormData: {
 } = {
   company: '',
   role: '',
-  date: '',
+  // date: '',
   rounds: '',
   experience: '',
   result: 'pending',
@@ -74,7 +74,7 @@ export default function InterviewExperiences() {
     setFormData({
       company: exp.company,
       role: exp.role,
-      date: exp.date,
+      // date: exp.date,
       rounds: exp.rounds,
       experience: exp.experience,
       result: exp.result,
@@ -84,8 +84,13 @@ export default function InterviewExperiences() {
   };
 
   const handleDelete = (id: string) => {
+    const exp = experiences.find(e => e.id === id);
+    const name = exp ? `${exp.company} — ${exp.role}` : 'this experience';
+    if (!confirm(`Delete "${name}"? This cannot be undone.`)) return;
     setExperiences(prev => prev.filter(exp => exp.id !== id));
   };
+
+  
 
   function formatDateShort(d?: string) {
     if (!d) return '';
@@ -99,7 +104,7 @@ export default function InterviewExperiences() {
     const lines: string[] = [];
     lines.push(`${exp.company} — ${exp.role}`);
     lines.push(`Result: ${resultLabel}`);
-    if (exp.date) lines.push(`Date: ${formatDateShort(exp.date)}`);
+    // if (exp.date) lines.push(`Date: ${formatDateShort(exp.date)}`);
     if (exp.rounds) lines.push(`Rounds: ${exp.rounds}`);
     lines.push('');
     lines.push('Experience:');
@@ -159,7 +164,7 @@ export default function InterviewExperiences() {
               </div>
               
               <div className="grid sm:grid-cols-2 gap-4">
-                <div className="space-y-2">
+                {/* <div className="space-y-2">
                   <Label htmlFor="date">Interview Date</Label>
                   <Input
                     id="date"
@@ -168,7 +173,7 @@ export default function InterviewExperiences() {
                     onChange={(e) => setFormData(prev => ({ ...prev, date: e.target.value }))}
                     required
                   />
-                </div>
+                </div> */}
                 <div className="space-y-2">
                   <Label htmlFor="rounds">Rounds Attended</Label>
                   <Input
@@ -283,12 +288,12 @@ export default function InterviewExperiences() {
                       </div>
                       <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
                         <span>{exp.role}</span>
-                        <span>•</span>
-                        <span>{new Date(exp.date).toLocaleDateString('en-US', { 
+                        
+                        {/* <span>{new Date(exp.date).toLocaleDateString('en-US', { 
                           month: 'short', 
                           day: 'numeric', 
                           year: 'numeric' 
-                        })}</span>
+                        })}</span> */}
                         <span>•</span>
                         <span>{exp.rounds}</span>
                       </div>
@@ -318,6 +323,7 @@ export default function InterviewExperiences() {
                       <Button variant="ghost" size="icon" onClick={(e) => { e.stopPropagation(); handleEdit(exp); }}>
                         <Edit2 className="w-4 h-4" />
                       </Button>
+                      {/* publish feature removed */}
                       <Button variant="ghost" size="icon" onClick={(e) => { e.stopPropagation(); handleDelete(exp.id); }}>
                         <Trash2 className="w-4 h-4 text-destructive" />
                       </Button>

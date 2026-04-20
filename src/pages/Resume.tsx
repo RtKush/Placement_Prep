@@ -80,6 +80,9 @@ export default function Resume() {
   };
 
   const handleDelete = (id: string) => {
+    const pdf = pdfs.find(p => p.id === id);
+    const name = pdf?.name || 'this resume';
+    if (!confirm(`Delete "${name}"? This cannot be undone.`)) return;
     setPdfs(prev => prev.filter(pdf => pdf.id !== id));
     if (primaryResumeId === id) {
       const remaining = resumes.filter(r => r.id !== id);
@@ -312,6 +315,8 @@ export default function Resume() {
           title={selectedPdf.name}
         />
       )}
+
+      {/* native confirm used for deletions */}
     </div>
   );
 }

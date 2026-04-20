@@ -19,6 +19,7 @@ const platformIcons: Record<string, string> = {
   other: '</>'
 };
 
+
 export default function CodingProfiles() {
   const [profiles, setProfiles] = useLocalStorage<CodingProfile[]>('codingProfiles', []);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -59,6 +60,9 @@ export default function CodingProfiles() {
   };
 
   const handleDelete = (id: string) => {
+    const profile = profiles.find(p => p.id === id);
+    const name = profile?.name || 'this profile';
+    if (!confirm(`Delete "${name}"? This cannot be undone.`)) return;
     setProfiles(prev => prev.filter(p => p.id !== id));
   };
 
@@ -74,7 +78,7 @@ export default function CodingProfiles() {
         <div>
           <h1 className="text-3xl font-bold">Coding Profiles</h1>
           <p className="text-muted-foreground mt-1">
-            Store and quickly access all your coding platform profiles
+            Add Your Coding Profile and quickly access all your coding platform profiles
           </p>
         </div>
         
@@ -191,6 +195,8 @@ export default function CodingProfiles() {
           ))}
         </div>
       )}
+
+      {/* native confirm used for deletions */}
     </div>
   );
 }

@@ -480,52 +480,6 @@ export default function DSASheets() {
         })}
       </div>
 
-      {/* PERFORMANCE */}
-
-      {/* PERFORMANCE */}
-<div className="space-y-6">
-  <h2 className="text-xl font-semibold">📊 Last 7 Days Performance</h2>
-
-  {sheets.map(sheet => (
-    <div
-      key={sheet.id}
-      className="flex items-center justify-between gap-4"
-    >
-      {/* Sheet Name */}
-      <h4 className="font-medium w-48 truncate">
-        {sheet.name}
-      </h4>
-
-      {/* Circles */}
-      <div className="flex gap-2">
-        {Array.from({ length: 7 }).map((_, index) => {
-          const day = sheet.progress[sheet.progress.length - 7 + index];
-          const completed = day?.completed ?? 0;
-
-          let bg = 'bg-muted';
-          if (completed === 3) bg = 'bg-green-500';
-          else if (completed === 2) bg = 'bg-green-400';
-          else if (completed === 1) bg = 'bg-green-200';
-
-          return (
-            <div
-              key={index}
-              title={`${completed}/3 questions`}
-              className={`w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-semibold text-white ${bg}`}
-            >
-              {completed}
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Status */}
-      <span className="text-xs text-muted-foreground w-32 text-right">
-        Last 7 days
-      </span>
-    </div>
-  ))}
-</div>
 
     </div>
   );

@@ -78,6 +78,9 @@ export default function Notes() {
 
 
   const handleDelete = (id: string) => {
+    const pdf = pdfs.find(p => p.id === id);
+    const name = pdf?.name || 'this note';
+    if (!confirm(`Delete "${name}"? This cannot be undone.`)) return;
     setPdfs(prev => prev.filter(pdf => pdf.id !== id));
   };
 
@@ -292,6 +295,8 @@ export default function Notes() {
           title={selectedPdf.name}
         />
       )}
+
+      {/* native confirm used for deletions */}
     </div>
   );
 }

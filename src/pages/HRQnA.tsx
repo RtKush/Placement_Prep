@@ -14,6 +14,7 @@ import { EmptyState } from '@/components/EmptyState';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { HRQuestion } from '@/types/workspace';
 import { cn } from '@/lib/utils';
+// using native confirm dialogs
 
 const initialFormData: {
   question: string;
@@ -80,6 +81,9 @@ export default function HRQnA() {
   };
 
   const handleDelete = (id: string) => {
+    const q = questions.find(item => item.id === id);
+    const text = q?.question || 'this question';
+    if (!confirm(`Delete "${text}"? This cannot be undone.`)) return;
     setQuestions(prev => prev.filter(q => q.id !== id));
   };
 
@@ -101,6 +105,8 @@ export default function HRQnA() {
           const parts = line.split('|').map(p => p.trim());
           fallback.push({ question: parts[0] || '', answer: parts[1] || '' });
         }
+
+        {/* native confirm used for deletions */}
       });
       if (fallback.length) {
         parsed = fallback;
@@ -261,10 +267,10 @@ export default function HRQnA() {
               Add Question
             </Button>
           </DialogTrigger>
-          <Button className="gap-2" variant="outline" onClick={() => { setImportOpen(true); setImportCategory(activeTab); }}>
+          {/* <Button className="gap-2" variant="outline" onClick={() => { setImportOpen(true); setImportCategory(activeTab); }}>
             <CloudUpload className="w-4 h-4" />
             Bulk Import
-          </Button>
+          </Button> */}
           <DialogContent className="max-w-2xl">
               <DialogHeader>
                 <DialogTitle>{editingQuestion ? 'Edit Question' : 'Add Question & Answer'}</DialogTitle>
@@ -321,7 +327,7 @@ export default function HRQnA() {
           </DialogContent>
         </Dialog>
 
-        {/* Bulk Import Dialog */}
+        {/* Bulk Import Dialog
         <Dialog open={importOpen} onOpenChange={setImportOpen}>
           <DialogContent className="max-w-2xl">
             <DialogHeader>
@@ -390,7 +396,7 @@ export default function HRQnA() {
               </div>
             </div>
           </DialogContent>
-        </Dialog>
+        </Dialog> */}
       </div>
 
       {/* Category Tabs */}
