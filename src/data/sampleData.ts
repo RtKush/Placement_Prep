@@ -64,7 +64,7 @@ export const samplePDFResources: PDFResource[] = [
     name: 'Computer Networks Notes',
     category: 'notes',
     subject: 'Computer Networks',
-    url: 'https://drive.google.com/file/d/cn',
+    url: 'https://drive.google.com/file/d/1tQcFGefBsau-EZh1hq33EcGquOjf7PM6/view?usp=sharing',
     createdAt: new Date().toISOString()
   },
   {
@@ -72,7 +72,7 @@ export const samplePDFResources: PDFResource[] = [
     name: 'OOPs Notes',
     category: 'notes',
     subject: 'Object Oriented Programming',
-    url: 'https://drive.google.com/file/d/oops',
+    url: 'https://drive.google.com/file/d/19mDEnKZE7rsEhXSj8RYMzCeEWv526WPa/view?usp=sharing',
     createdAt: new Date().toISOString()
   },
   {
@@ -80,7 +80,7 @@ export const samplePDFResources: PDFResource[] = [
     name: 'System Design Basics',
     category: 'notes',
     subject: 'System Design',
-    url: 'https://drive.google.com/file/d/systemdesign',
+    url: 'https://drive.google.com/file/d/1VhkpG2SutW6RIpMYwpHymR3v8N2SY6ZP/view?usp=sharing',
     createdAt: new Date().toISOString()
   },
   {
@@ -671,19 +671,26 @@ createdAt:new Date().toISOString()
 
 export const sampleProjects: Project[] = [
   {
-    id: '1',
-    name: 'E-Commerce Platform',
-    techStack: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-    overview:
-      'A full-stack e-commerce platform that allows users to browse products, add them to cart, and securely complete payments.',
-    flow:
-      'Users sign up and log in using JWT authentication. Products are fetched from the backend and displayed on the frontend. Cart state is managed on the client, and Stripe handles secure payment processing.',
-    features:
-      'User authentication, product listing, cart management, Stripe payment integration, order history.',
-    githubUrl: 'https://github.com/username/ecommerce',
-    liveUrl: 'https://myecommerce.com',
-    createdAt: new Date().toISOString(),
-  },
+  "id": "1",
+  "name": "Placement Prep Workplace",
+  "techStack": [
+    "React.js", 
+    "TypeScript", 
+    "Tailwind CSS", 
+    "Shadcn UI", 
+    "Framer Motion", 
+    "Vite"
+  ],
+  "overview": 
+    "A comprehensive, centralized preparation ecosystem designed to streamline the technical recruitment journey. It serves as a high-performance dashboard for managing DSA roadmaps, company-specific resources, and interview intelligence in one unified interface.",
+  "flow": 
+    "Open the web application, which immediately initializes a smooth experience by allowing a toggle to Dark Mode. From the dashboard, navigate to the 'Coding Profiles' section to manage platform links. You can add extra profiles or custom data points here; the application ensures all important data is persisted in LocalStorage, preventing data loss even after page refreshes (as long as browser storage is not cleared).",
+  "features": 
+    "Interactive DSA Progress Tracker, Company-Specific Interview Modules, Built-in PDF Resource Hub, Real-world Interview Experience Archives, HR Interview Q&A Library, Command-Center Search (K-Command), and Persistent Dark/Light Mode.",
+  "githubUrl": "https://github.com",
+  "liveUrl": "https://placement-prep-workplace.vercel.app",
+  "createdAt": "2026-04-20T12:31:00Z"
+},
 
 ];
 
